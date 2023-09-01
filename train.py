@@ -200,7 +200,6 @@ if __name__ == "__main__":
     args.add_argument("-r", "--replay", help="Replay the training", action="store_true", default=False)
     args.add_argument("-s", "--simulate", help="Runs the training without saving thetas", action="store_true", default=False)
     args.add_argument("-m", "--min_delta", help="Minimum MSE delta for early stopping", default=1e-7, type=float)
-    args.add_argument("-v", "--visualize", help="Visualize the data", action="store_true", default=False)
     args = args.parse_args()
     lr = LinearRegression(
         args.input,
