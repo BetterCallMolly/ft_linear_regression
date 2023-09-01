@@ -87,13 +87,15 @@ class LinearRegression:
             else:
                 old_mse = self.mse()
 
-        # Denormalize thetas to be able to predict values without re-normalizing them
-        self.theta_0 *= self.max_y
-        self.theta_1 *= self.max_y / self.max_x
 
         print("\nTraining summary:")
         print("  - MSE: {:.3f}".format(self.mse()))
         print("  - R2: {:.3f}".format(self.r2()))
+
+        # Denormalize thetas to be able to predict values without re-normalizing them
+        self.theta_0 *= self.max_y
+        self.theta_1 *= self.max_y / self.max_x
+
         print("  - Theta 0: {:.3f}".format(self.theta_0))
         print("  - Theta 1: {:.3f}".format(self.theta_1))
 
@@ -196,7 +198,7 @@ if __name__ == "__main__":
     args.add_argument("-e", "--epochs", default=10000, help="Number of maximum iterations for fitting", type=int)
     args.add_argument("-p", "--plot", help="Plot the data", action="store_true", default=False)
     args.add_argument("-r", "--replay", help="Replay the training", action="store_true", default=False)
-    args.add_argument("-s", "--save", help="Save thetas to a file", action="store_true", default=True)
+    args.add_argument("-s", "--simulate", help="Runs the training without saving thetas", action="store_true", default=False)
     args.add_argument("-m", "--min_delta", help="Minimum MSE delta for early stopping", default=1e-7, type=float)
     args.add_argument("-v", "--visualize", help="Visualize the data", action="store_true", default=False)
     args = args.parse_args()
@@ -208,7 +210,7 @@ if __name__ == "__main__":
     ).fit()
     if args.plot:
         lr.plot()
-    if args.save:
+    if not args.simulate:
         lr.save()
     if args.replay:
         lr.replay()
